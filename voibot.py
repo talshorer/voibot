@@ -3,7 +3,13 @@
 import random
 import discord
 
-client = discord.Client()
+client = discord.Client(
+    intents=discord.Intents(
+        members=True,
+        messages=True,
+        guilds=True,
+    ),
+)
 
 xlate_table = {}
 with open("xlate") as f:
@@ -31,6 +37,11 @@ async def on_message(message):
         print(f"Summon message on channel {message.channel.name}")
         response = xlate(content[len(trigger):])
         await message.channel.send(response)
+
+@client.event
+async def on_member_join(member):
+    print(f"New member {member.display_name}")
+    await member.edit(nick=xlate(member.display_name))
 
 with open("token.txt") as f:
     token = f.read().strip()
