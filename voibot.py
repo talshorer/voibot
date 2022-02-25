@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 
+import os
 import random
+import dotenv
 import discord
 
 client = discord.Client(
@@ -43,6 +45,6 @@ async def on_member_join(member):
     print(f"New member {member.display_name}")
     await member.edit(nick=xlate(member.display_name))
 
-with open("token.txt") as f:
-    token = f.read().strip()
+dotenv.load_dotenv()
+token = os.getenv('DISCORD_TOKEN')
 client.run(token)
