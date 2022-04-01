@@ -4,6 +4,7 @@ import os
 import random
 import dotenv
 import discord
+import asyncio
 
 client = discord.Client(
     intents=discord.Intents(
@@ -45,6 +46,14 @@ async def on_member_join(member):
     print(f"New member {member.display_name}")
     await member.edit(nick=xlate(member.display_name))
 
-dotenv.load_dotenv()
-token = os.getenv('DISCORD_TOKEN')
-client.run(token)
+async def main():
+    dotenv.load_dotenv()
+    token = os.getenv('DISCORD_TOKEN_VOIBOT')
+    await client.start(token)
+
+
+if __name__ == "__main__":
+    all_tasks = [
+        main(),
+    ]
+    asyncio.get_event_loop().run_until_complete(asyncio.gather(*all_tasks))
