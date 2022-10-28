@@ -15,7 +15,7 @@ client = discord.Client(
 )
 
 xlate_table = {}
-with open("xlate") as f:
+with open(os.path.join(os.path.dirname(__file__), "xlate")) as f:
     for line in f:
         xlate_table[line[0]] = line[2:-1]
 
