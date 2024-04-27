@@ -10,6 +10,7 @@ client = discord.Client(
     intents=discord.Intents(
         members=True,
         messages=True,
+        message_content=True,
         guilds=True,
     ),
 )
